@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>操作ログ解析</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --text: #17202a;
+      --muted: #5f6b7a;
+      --line: #d8dee8;
+      --accent: #1f6feb;
+      --danger: #b42318;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    main {
+      width: min(1180px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+
+    header {
+      margin-bottom: 20px;
+    }
+
+    h1, h2, h3, p {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 6px;
+      font-size: 1.8rem;
+    }
+
+    h2 {
+      margin-bottom: 12px;
+      font-size: 1.25rem;
+    }
+
+    h3 {
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: minmax(260px, 360px) 1fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    input[type="file"],
+    button,
+    textarea {
+      width: 100%;
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 220px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      resize: vertical;
+      font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+
+    button {
+      border: 0;
+      border-radius: 8px;
+      background: var(--accent);
+      color: white;
+      cursor: pointer;
+      font-weight: 700;
+      padding: 10px 14px;
+    }
+
+    button.secondary {
+      background: #2f3a4a;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .actions button {
+      width: auto;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.45rem;
+      line-height: 1.2;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .error {
+      color: var(--danger);
+      font-weight: 700;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 820px) {
+      main {
+        width: min(100vw - 20px, 1180px);
+        padding-top: 18px;
+      }
+
+      .input-grid,
+      .two-column,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .actions button {
+        width: 100%;
+      }
+    }
+  </style>
+  <script type="module" crossorigin src="./assets/analyzer-BnukgRUV.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/modulepreload-polyfill-B5Qt9EMX.js">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>操作ログ解析</h1>
+      <p class="muted">CAPTCHAの操作ログテキストを読み込み、時間配分、方向の傾向、ドラッグごとの詳細を解析します。</p>
+    </header>
+
+    <section class="panel">
+      <div class="input-grid">
+        <div>
+          <label for="logFile">ログファイルを選択</label>
+          <input id="logFile" type="file" accept=".txt,text/plain" />
+          <div class="actions">
+            <button id="analyzeButton" type="button">解析</button>
+            <button id="clearButton" class="secondary" type="button">クリア</button>
+          </div>
+          <p id="status" class="muted">ログファイルを選択するか、右側にログ本文を貼り付けてください。</p>
+        </div>
+        <div>
+          <label for="logText">ログ本文</label>
+          <textarea id="logText" placeholder="captcha-operation-log-*.txt の内容を貼り付けてください"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section id="errorBox" class="panel hidden">
+      <p class="error" id="errorMessage"></p>
+    </section>
+
+    <section id="result" class="hidden">
+      <div id="summaryStats" class="stats"></div>
+
+      <section class="panel">
+        <h2>分析結果</h2>
+        <div id="findings"></div>
+        <div class="actions">
+          <button id="downloadAnalysisButton" type="button">解析結果をテキストで保存</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>時間配分</h2>
+        <div id="timelineTable"></div>
+      </section>
+
+      <section class="two-column">
+        <div class="panel">
+          <h2>方向の偏り</h2>
+          <div id="directionTable"></div>
+        </div>
+        <div class="panel">
+          <h2>読み取り方</h2>
+          <div id="interpretation"></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>ドラッグごとの内訳</h2>
+        <div id="dragTable"></div>
+      </section>
+
+      <section class="panel">
+        <h2>注意点</h2>
+        <p class="muted">推定回転回数と累積回転角度は、touchmoveイベントに記録された回転値から計算しています。指を離した後の慣性回転は、完全には含まれない場合があります。</p>
+      </section>
+    </section>
+  </main>
+
+</body>
+</html>
