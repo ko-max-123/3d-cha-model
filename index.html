@@ -25,6 +25,12 @@
       overscroll-behavior: none;
       touch-action: none;
     }
+    body.post-survey-active {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      overscroll-behavior: none;
+    }
     #container {
       width: 100vw;
       height: 100dvh;
@@ -108,17 +114,17 @@
     }
     #post-survey-screen.pre-screen {
       justify-content: flex-start;
-      align-items: center;
+      align-items: stretch;
       height: 100dvh;
       min-height: 0;
-      padding-top: max(36px, calc(env(safe-area-inset-top) + 24px));
-      padding-bottom: max(36px, calc(env(safe-area-inset-bottom) + 24px));
+      padding: 0 24px max(48px, calc(env(safe-area-inset-bottom) + 32px));
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
     }
     #postSurveyForm {
       flex: 0 0 auto;
       margin: 0 auto;
+      padding-top: max(72px, calc(env(safe-area-inset-top) + 56px));
       padding-bottom: 32px;
     }
     #main-screen {
@@ -237,7 +243,7 @@
       text-align: center;
     }
   </style>
-  <script type="module" crossorigin src="./assets/main-DbgEgNjS.js"></script>
+  <script type="module" crossorigin src="./assets/main-CnGAPccF.js"></script>
 </head>
 <body>
   <div id="container">
