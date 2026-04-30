@@ -225,9 +225,15 @@
     }
     #feedback,
     #finishButton,
+    #practiceContinueButton,
     #result,
     #correctAnswer {
       display: none;
+    }
+    #postSurveyComment {
+      max-width: 100%;
+      height: 120px;
+      text-align: left;
     }
     #thank-you {
       display: none;
@@ -243,7 +249,7 @@
       text-align: center;
     }
   </style>
-  <script type="module" crossorigin src="./assets/main-CnGAPccF.js"></script>
+  <script type="module" crossorigin src="./assets/main-BILnw0_i.js"></script>
 </head>
 <body>
   <div id="container">
@@ -332,6 +338,7 @@
         <h2 id="instruction">見えた文字を入力してください</h2>
         <input type="text" id="userInput" />
         <button id="submitButton">送信</button>
+        <button id="practiceContinueButton" type="button">本題へ進む</button>
         <div id="result"></div>
         <div id="correctAnswer"></div>
         <textarea id="feedback" placeholder="任意の感想"></textarea>
@@ -343,80 +350,69 @@
       <form id="postSurveyForm" class="panel">
         <h1>テスト後アンケート</h1>
         <div class="field">
-          <label for="easyToUse">やりやすいと思いますか？</label>
-          <select id="easyToUse" name="easyToUse" required>
+          <label for="approachability">このテストはどの程度取り組みやすいと思いましたか？</label>
+          <select id="approachability" name="approachability" required>
             <option value="">選択してください</option>
-            <option value="5">5（そう思う）</option>
+            <option value="5">5</option>
             <option value="4">4</option>
             <option value="3">3</option>
             <option value="2">2</option>
-            <option value="1">1（そう思わない）</option>
+            <option value="1">1</option>
           </select>
         </div>
         <div class="field">
-          <label for="hardToUse">やりにくいと思いますか？</label>
-          <select id="hardToUse" name="hardToUse" required>
-            <option value="">選択してください</option>
-            <option value="5">5（そう思う）</option>
-            <option value="4">4</option>
-            <option value="3">3</option>
-            <option value="2">2</option>
-            <option value="1">1（そう思わない）</option>
-          </select>
+          <label>このテストは楽しいと思いますか？</label>
+          <div class="radio-group">
+            <label><input type="radio" name="fun" value="yes" required />yes</label>
+            <label><input type="radio" name="fun" value="no" />no</label>
+          </div>
         </div>
         <div class="field">
-          <label for="fun">楽しいですか？</label>
-          <select id="fun" name="fun" required>
-            <option value="">選択してください</option>
-            <option value="5">5（そう思う）</option>
-            <option value="4">4</option>
-            <option value="3">3</option>
-            <option value="2">2</option>
-            <option value="1">1（そう思わない）</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="difficulty">難易度はどのくらいでしたか？</label>
+          <label for="difficulty">このテストの難易度はどの程度でしたか？</label>
           <select id="difficulty" name="difficulty" required>
             <option value="">選択してください</option>
-            <option value="5">5（難しい）</option>
+            <option value="5">5</option>
             <option value="4">4</option>
             <option value="3">3</option>
             <option value="2">2</option>
-            <option value="1">1（易しい）</option>
+            <option value="1">1</option>
           </select>
         </div>
         <div class="field">
-          <label>ストレスを感じましたか？</label>
+          <label>このテストにストレスは感じましたか？</label>
           <div class="radio-group">
-            <label><input type="radio" name="stress" value="yes" required />はい</label>
-            <label><input type="radio" name="stress" value="no" />いいえ</label>
+            <label><input type="radio" name="stress" value="yes" required />yes</label>
+            <label><input type="radio" name="stress" value="no" />no</label>
           </div>
         </div>
         <div class="field">
-          <label>再度利用したいですか？</label>
+          <label>このテストをまた解いてもよいと思いましたか？</label>
           <div class="radio-group">
-            <label><input type="radio" name="useAgain" value="yes" required />はい</label>
-            <label><input type="radio" name="useAgain" value="no" />いいえ</label>
+            <label><input type="radio" name="solveAgain" value="yes" required />yes</label>
+            <label><input type="radio" name="solveAgain" value="no" />no</label>
           </div>
         </div>
         <div class="field">
-          <label>セキュリティ上役に立つと思いますか？</label>
+          <label>このテストはコンピューターに解けないと思いますか？</label>
           <div class="radio-group">
-            <label><input type="radio" name="usefulForSecurity" value="yes" required />はい</label>
-            <label><input type="radio" name="usefulForSecurity" value="no" />いいえ</label>
+            <label><input type="radio" name="computerHard" value="yes" required />yes</label>
+            <label><input type="radio" name="computerHard" value="no" />no</label>
           </div>
         </div>
         <div class="field">
-          <label for="satisfaction">検証してみて、満足しましたか？</label>
+          <label for="satisfaction">このテストを解いてみてどの程度満足できましたか？</label>
           <select id="satisfaction" name="satisfaction" required>
             <option value="">選択してください</option>
-            <option value="5">5（そう思う）</option>
+            <option value="5">5</option>
             <option value="4">4</option>
             <option value="3">3</option>
             <option value="2">2</option>
-            <option value="1">1（そう思わない）</option>
+            <option value="1">1</option>
           </select>
+        </div>
+        <div class="field">
+          <label for="postSurveyComment">このテストでわかりにくい文字はありましたか？また、感想があればここにお書き下さい。</label>
+          <textarea id="postSurveyComment" name="postSurveyComment" maxlength="200" placeholder="200文字まで"></textarea>
         </div>
         <div style="text-align: center;">
           <button id="postSurveySubmitButton" type="submit">アンケートを送信</button>
