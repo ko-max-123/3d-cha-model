@@ -110,10 +110,15 @@
       justify-content: flex-start;
       align-items: center;
       height: 100dvh;
+      min-height: 0;
+      padding-top: max(36px, calc(env(safe-area-inset-top) + 24px));
+      padding-bottom: max(36px, calc(env(safe-area-inset-bottom) + 24px));
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
     }
     #postSurveyForm {
+      flex: 0 0 auto;
+      margin: 0 auto;
       padding-bottom: 32px;
     }
     #main-screen {
@@ -232,7 +237,7 @@
       text-align: center;
     }
   </style>
-  <script type="module" crossorigin src="./assets/main-CuFiaiKw.js"></script>
+  <script type="module" crossorigin src="./assets/main-DbgEgNjS.js"></script>
 </head>
 <body>
   <div id="container">
