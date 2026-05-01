@@ -249,7 +249,7 @@
       text-align: center;
     }
   </style>
-  <script type="module" crossorigin src="./assets/main-QFp3I17D.js"></script>
+  <script type="module" crossorigin src="./assets/main-CON4AmKi.js"></script>
 </head>
 <body>
   <div id="container">
@@ -349,33 +349,38 @@
     <div id="post-survey-screen" class="pre-screen">
       <form id="postSurveyForm" class="panel">
         <h1>テスト後アンケート</h1>
+        <div id="postSurveyStatus" class="status-message"></div>
         <div class="field">
           <label for="approachability">このテストはどの程度取り組みやすいと思いましたか？</label>
           <select id="approachability" name="approachability" required>
             <option value="">選択してください</option>
-            <option value="5">5（そう思う）</option>
+            <option value="5">5（取り組みやすい）</option>
             <option value="4">4</option>
             <option value="3">3</option>
             <option value="2">2</option>
-            <option value="1">1（そう思わない）</option>
+            <option value="1">1（取り組みにくい）</option>
           </select>
         </div>
         <div class="field">
-          <label>このテストは楽しいと思いますか？</label>
-          <div class="radio-group">
-            <label><input type="radio" name="fun" value="yes" required />yes</label>
-            <label><input type="radio" name="fun" value="no" />no</label>
-          </div>
+          <label for="fun">このテストは楽しいと思いますか？</label>
+          <select id="fun" name="fun" required>
+            <option value="">選択してください</option>
+            <option value="5">5（楽しい）</option>
+            <option value="4">4</option>
+            <option value="3">3</option>
+            <option value="2">2</option>
+            <option value="1">1（楽しくない）</option>
+          </select>
         </div>
         <div class="field">
           <label for="difficulty">このテストの難易度はどの程度でしたか？</label>
           <select id="difficulty" name="difficulty" required>
             <option value="">選択してください</option>
-            <option value="5">5（そう思う）</option>
+            <option value="5">5（簡単）</option>
             <option value="4">4</option>
             <option value="3">3</option>
             <option value="2">2</option>
-            <option value="1">1（そう思わない）</option>
+            <option value="1">1（難しい）</option>
           </select>
         </div>
         <div class="field">
@@ -403,11 +408,11 @@
           <label for="satisfaction">このテストを解いてみてどの程度満足できましたか？</label>
           <select id="satisfaction" name="satisfaction" required>
             <option value="">選択してください</option>
-            <option value="5">5（そう思う）</option>
+            <option value="5">5（満足）</option>
             <option value="4">4</option>
             <option value="3">3</option>
             <option value="2">2</option>
-            <option value="1">1（そう思わない）</option>
+            <option value="1">1（満足していない）</option>
           </select>
         </div>
         <div class="field">
@@ -417,7 +422,6 @@
         <div style="text-align: center;">
           <button id="postSurveySubmitButton" type="submit">アンケートを送信</button>
         </div>
-        <div id="postSurveyStatus" class="status-message"></div>
       </form>
     </div>
 
